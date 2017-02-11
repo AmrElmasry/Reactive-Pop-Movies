@@ -63,5 +63,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     apt 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
     provided 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
+    // OkHttp Logger
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 }

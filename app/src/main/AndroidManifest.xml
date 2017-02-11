@@ -3,12 +3,13 @@
     package="amrelmasry.com.reactive_pop_movies">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MoviesGridActivity">
+        <activity android:name=".features.grid.MoviesGridActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
