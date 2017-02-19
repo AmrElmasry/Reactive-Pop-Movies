@@ -1,19 +1,18 @@
 package amrelmasry.com.reactive_pop_movies;
 
-import android.app.Application;
-
-import amrelmasry.com.reactive_pop_movies.base.injection.components.base.AppComponent;
-import amrelmasry.com.reactive_pop_movies.base.injection.components.base.DaggerAppComponent;
-import amrelmasry.com.reactive_pop_movies.base.injection.modules.AppEnvironmentModule;
-import amrelmasry.com.reactive_pop_movies.base.injection.modules.ViewModelEnvironmentModule;
-import amrelmasry.com.reactive_pop_movies.base.injection.modules.base.AppModule;
-import amrelmasry.com.reactive_pop_movies.base.injection.modules.base.NetworkModule;
+import amrelmasry.com.core.BaseApp;
+import amrelmasry.com.reactive_pop_movies.common.injection.components.base.AppComponent;
+import amrelmasry.com.reactive_pop_movies.common.injection.components.base.DaggerAppComponent;
+import amrelmasry.com.reactive_pop_movies.common.injection.modules.AppEnvironmentModule;
+import amrelmasry.com.reactive_pop_movies.common.injection.modules.ViewModelEnvironmentModule;
+import amrelmasry.com.reactive_pop_movies.common.injection.modules.base.AppModule;
+import amrelmasry.com.reactive_pop_movies.common.injection.modules.base.NetworkModule;
 
 /**
  * Created by Amr on 03/02/17.
  */
 
-public class App extends Application {
+public class App extends BaseApp {
 
     private AppComponent mAppComponent;
 

@@ -30,40 +30,21 @@ android {
 }
 
 dependencies {
+
+    compile project(":core")
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.1'
     testCompile 'junit:junit:4.12'
-    // butter knife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     // dagger 2
     apt 'com.google.dagger:dagger-compiler:2.8'
     compile 'com.google.dagger:dagger:2.8'
     provided 'javax.annotation:jsr250-api:1.0'
-    // RxJava
-    compile "io.reactivex:rxjava:1.2.4"
-    // RxAndroid
-    compile "io.reactivex:rxandroid:1.2.1"
-    // Retrofit
-    compile "com.squareup.retrofit2:retrofit:2.1.0"
-    // Retrofit Adapter
-    compile "com.squareup.retrofit2:adapter-rxjava:2.1.0"
-    // Retrofit Converter
-    compile "com.squareup.retrofit2:converter-gson:2.1.0"
-    // AutoValue
-    provided "com.google.auto.value:auto-value:1.2"
-    apt "com.google.auto.value:auto-value:1.2"
-    // AutoParcel
-    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
-    compile 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
-    // AutoGson
-    compile 'com.google.code.gson:gson:2.8.0'
-    apt 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
-    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
-    // OkHttp Logger
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-
+    // butter knife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
