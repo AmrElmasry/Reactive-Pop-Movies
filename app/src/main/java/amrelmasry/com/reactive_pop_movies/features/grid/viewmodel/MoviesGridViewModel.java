@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import amrelmasry.com.core.models.PaginatedResponse;
+import amrelmasry.com.core.utils.Paginator;
 import amrelmasry.com.reactive_pop_movies.common.models.Movie;
 import amrelmasry.com.reactive_pop_movies.common.models.environments.ViewModelEnvironment;
 import amrelmasry.com.reactive_pop_movies.common.viewmodel.BaseViewModel;
@@ -21,6 +22,7 @@ public class MoviesGridViewModel
         implements MoviesGridInputs, MoviesGridOutputs {
 
     private BehaviorSubject<LoadMoviesCmd> loadMoviesCmdSubject = BehaviorSubject.create();
+    private Paginator paginator = Paginator.create();
 
     @Inject
     public MoviesGridViewModel(ViewModelEnvironment viewModelEnvironment) {
@@ -44,8 +46,9 @@ public class MoviesGridViewModel
 
     @Override
     public Observable<List<Movie>> moviesLoaded() {
-        return loadMoviesCmdSubject.asObservable()
-                .flatMap(loadMoviesCmd -> getDataManager().getPopularMovies())
+        return loadMoviesCmdSubject.flatMap(__ -> paginator.getNextPage())
+                .flatMap(page -> getDataManager().getPopularMovies(page))
+                .doOnNext(moviePaginatedResponse -> paginator.processPaginatedResponse(moviePaginatedResponse))
                 .map(PaginatedResponse::getResults);
     }
 }

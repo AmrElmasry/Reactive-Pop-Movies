@@ -58,6 +58,11 @@ public abstract class BaseCoreRecyclerViewActivity extends BaseCoreActivity {
         return mRecyclerView;
     }
 
+    @NonNull
+    protected RecyclerView.LayoutManager getRecyclerViewLayoutManager() {
+        return getRecyclerView().getLayoutManager();
+    }
+
     public BaseRecyclerViewAdapter getRecyclerViewAdapter() {
         return mRecyclerViewAdapter;
     }

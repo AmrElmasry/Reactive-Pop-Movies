@@ -1,5 +1,7 @@
 package amrelmasry.com.reactive_pop_movies.common;
 
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
 import amrelmasry.com.core.BaseDataManager;
@@ -18,7 +20,7 @@ public class DataManager extends BaseDataManager<ApiService> {
         super(mApiService);
     }
 
-    public Observable<PaginatedResponse<Movie>> getPopularMovies() {
-        return mApiService.listPopularMovies(null);
+    public Observable<PaginatedResponse<Movie>> getPopularMovies(@Nullable Integer page) {
+        return mApiService.listPopularMovies(page);
     }
 }

@@ -3,6 +3,7 @@ package amrelmasry.com.reactive_pop_movies.features.grid;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import amrelmasry.com.reactive_pop_movies.R;
 import amrelmasry.com.reactive_pop_movies.common.Navigation;
 import amrelmasry.com.reactive_pop_movies.common.activity.BaseRecyclerViewActivity;
 import amrelmasry.com.reactive_pop_movies.common.models.Movie;
+import amrelmasry.com.reactive_pop_movies.common.utils.EndlessRecyclerViewScrollListener;
 import amrelmasry.com.reactive_pop_movies.features.grid.adapter.MoviesAdapter;
 import amrelmasry.com.reactive_pop_movies.features.grid.adapter.viewholder.MoviesViewHolder;
 import amrelmasry.com.reactive_pop_movies.features.grid.rxbus.msgs.MovieClickEvent;
@@ -40,6 +42,8 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
 
         mMoviesGridViewModel.getInputs().loadMovies();
 
+        setupEndlessScrolling();
+
         mMoviesGridViewModel.getOutputs()
                 .moviesLoaded()
                 .subscribeOn(Schedulers.io())
@@ -47,12 +51,26 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
                 .subscribe(movies -> {
                             getRecyclerViewAdapter().addAll(movies);
                         },
-                        throwable -> showError(throwable.getMessage()));
+                        throwable -> {
+                            throwable.printStackTrace();
+                            showError(throwable.getMessage());
+                        });
 
         ClicksBus.receive()
                 .ofType(MovieClickEvent.class)
                 .map(MovieClickEvent::getMovie)
                 .subscribe(movie -> Navigation.openMovieDetailsScreen(this, movie));
+
+    }
+
+    private void setupEndlessScrolling() {
+        getRecyclerView().addOnScrollListener(
+                new EndlessRecyclerViewScrollListener((LinearLayoutManager) getRecyclerViewLayoutManager()) {
+                    @Override
+                    public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                        mMoviesGridViewModel.getInputs().loadMovies();
+                    }
+                });
     }
 
     @Override

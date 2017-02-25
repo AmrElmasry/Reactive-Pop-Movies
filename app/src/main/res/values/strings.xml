@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Reactive-Pop-Movies</string>
+    <string name="filter_menu_action">filter</string>
 </resources>

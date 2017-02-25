@@ -32,4 +32,8 @@ public class PaginatedResponse<T> {
     public int getTotalPages() {
         return totalPages;
     }
+
+    public boolean isLastPage() {
+        return page == totalPages;
+    }
 }
