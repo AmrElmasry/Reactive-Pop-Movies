@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import amrelmasry.com.core.BaseApp;
 import amrelmasry.com.core.models.environments.BaseCoreAppEnvironment;
@@ -35,4 +36,8 @@ public abstract class BaseCoreActivity extends AppCompatActivity {
     protected abstract BaseApp getApp();
 
     public abstract BaseCoreAppEnvironment getAppEnvironment();
+
+    protected void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
 }

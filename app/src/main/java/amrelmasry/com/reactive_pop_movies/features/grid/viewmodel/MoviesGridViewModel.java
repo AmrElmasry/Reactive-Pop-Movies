@@ -1,5 +1,6 @@
 package amrelmasry.com.reactive_pop_movies.features.grid.viewmodel;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import java.util.List;
@@ -33,11 +34,13 @@ public class MoviesGridViewModel
         super(viewModelEnvironment);
     }
 
+    @NonNull
     @Override
     protected MoviesGridInputs initInputs() {
         return this;
     }
 
+    @NonNull
     @Override
     protected MoviesGridOutputs initOutputs() {
         return this;

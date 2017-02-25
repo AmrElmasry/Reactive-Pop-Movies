@@ -13,4 +13,7 @@ public final class Constants {
         public static final String PREV_FILTER = "prev_filter";
     }
 
+    public static final class Extras {
+        public static final String MOVIE_ID = "movie_id";
+    }
 }

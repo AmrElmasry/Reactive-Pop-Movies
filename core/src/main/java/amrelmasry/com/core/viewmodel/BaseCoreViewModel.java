@@ -1,5 +1,7 @@
 package amrelmasry.com.core.viewmodel;
 
+import android.support.annotation.NonNull;
+
 import amrelmasry.com.core.BaseDataManager;
 import amrelmasry.com.core.models.environments.BaseCoreViewModelEnvironment;
 
@@ -25,21 +27,27 @@ public abstract class BaseCoreViewModel<I extends BaseCoreInputs,
         outputs = initOutputs();
     }
 
+    @NonNull
     protected abstract I initInputs();
 
+    @NonNull
     protected abstract O initOutputs();
 
+    @NonNull
     public I getInputs() {
         return inputs;
     }
 
+    @NonNull
     public O getOutputs() {
         return outputs;
     }
 
+    @NonNull
     protected E getEnvironment() {
         return mViewModelEnvironment;
     }
 
+    @NonNull
     protected abstract BaseDataManager getDataManager();
 }

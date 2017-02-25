@@ -2,6 +2,8 @@ package amrelmasry.com.reactive_pop_movies.common;
 
 import android.support.annotation.Nullable;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import amrelmasry.com.core.BaseDataManager;
@@ -29,7 +31,12 @@ public class DataManager extends BaseDataManager<ApiService> {
             case FilteringTypes.MOST_POPULAR_FILTER:
                 return mApiService.listPopularMovies(page);
             default:
-                throw new IllegalArgumentException(String.format("Unsupported Filter Type %d", filterType));
+                throw new IllegalArgumentException(String.format(Locale.US,
+                        "Unsupported Filter Type %d", filterType));
         }
+    }
+
+    public Observable<Movie> getMovieDetails(Integer movieId) {
+        return mApiService.getMovieDetails(movieId);
     }
 }
