@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import amrelmasry.com.core.BaseDataManager;
 import amrelmasry.com.core.models.PaginatedResponse;
+import amrelmasry.com.reactive_pop_movies.common.constantgroups.FilteringTypes;
 import amrelmasry.com.reactive_pop_movies.common.models.Movie;
 import rx.Observable;
 
@@ -20,7 +21,15 @@ public class DataManager extends BaseDataManager<ApiService> {
         super(mApiService);
     }
 
-    public Observable<PaginatedResponse<Movie>> getPopularMovies(@Nullable Integer page) {
-        return mApiService.listPopularMovies(page);
+    public Observable<PaginatedResponse<Movie>> getMovies(@FilteringTypes Integer filterType,
+                                                          @Nullable Integer page) {
+        switch (filterType) {
+            case FilteringTypes.HIGHEST_RATED_FILTER:
+                return mApiService.listTopRatedMovies(page);
+            case FilteringTypes.MOST_POPULAR_FILTER:
+                return mApiService.listPopularMovies(page);
+            default:
+                throw new IllegalArgumentException(String.format("Unsupported Filter Type %d", filterType));
+        }
     }
 }

@@ -15,13 +15,16 @@ import javax.inject.Inject;
 
 import amrelmasry.com.core.adapter.BaseRecyclerViewAdapter;
 import amrelmasry.com.core.rxbus.ClicksBus;
+import amrelmasry.com.core.rxbus.SelectionBus;
 import amrelmasry.com.reactive_pop_movies.R;
 import amrelmasry.com.reactive_pop_movies.common.Navigation;
 import amrelmasry.com.reactive_pop_movies.common.activity.BaseRecyclerViewActivity;
+import amrelmasry.com.reactive_pop_movies.common.constantgroups.FilteringTypes;
 import amrelmasry.com.reactive_pop_movies.common.models.Movie;
 import amrelmasry.com.reactive_pop_movies.common.utils.EndlessRecyclerViewScrollListener;
 import amrelmasry.com.reactive_pop_movies.features.grid.adapter.MoviesAdapter;
 import amrelmasry.com.reactive_pop_movies.features.grid.adapter.viewholder.MoviesViewHolder;
+import amrelmasry.com.reactive_pop_movies.features.grid.rxbus.msgs.FilterSelectionEvent;
 import amrelmasry.com.reactive_pop_movies.features.grid.rxbus.msgs.MovieClickEvent;
 import amrelmasry.com.reactive_pop_movies.features.grid.viewmodel.MoviesGridViewModel;
 import butterknife.BindInt;
@@ -30,17 +33,22 @@ import rx.schedulers.Schedulers;
 
 public class MoviesGridActivity extends BaseRecyclerViewActivity {
 
+    private static final int DEFAULT_FILTER = FilteringTypes.MOST_POPULAR_FILTER;
+
     @Inject
     MoviesGridViewModel mMoviesGridViewModel;
 
     @BindInt(R.integer.movies_grid_span_count)
     int mSpanCount;
+    @FilteringTypes
+    private Integer mSelectedFilter = DEFAULT_FILTER;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMoviesGridViewModel.getInputs().loadMovies();
+        mMoviesGridViewModel.getInputs().loadMoviesFromScratch(DEFAULT_FILTER);
 
         setupEndlessScrolling();
 
@@ -61,6 +69,15 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
                 .map(MovieClickEvent::getMovie)
                 .subscribe(movie -> Navigation.openMovieDetailsScreen(this, movie));
 
+        SelectionBus.receive()
+                .ofType(FilterSelectionEvent.class)
+                .map(FilterSelectionEvent::getSelectedFilter)
+                .subscribe(selectedFilter -> {
+                    getRecyclerViewAdapter().clear();
+                    mSelectedFilter = selectedFilter;
+                    mMoviesGridViewModel.loadMoviesFromScratch(selectedFilter);
+                });
+
     }
 
     private void setupEndlessScrolling() {
@@ -68,7 +85,7 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
                 new EndlessRecyclerViewScrollListener((LinearLayoutManager) getRecyclerViewLayoutManager()) {
                     @Override
                     public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                        mMoviesGridViewModel.getInputs().loadMovies();
+                        mMoviesGridViewModel.getInputs().loadMoreMovies(mSelectedFilter);
                     }
                 });
     }
@@ -82,7 +99,7 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.filter_action_btn) {
-            Navigation.showFilterScreen();
+            Navigation.showFilterScreen(getSupportFragmentManager(), mSelectedFilter);
             return true;
         }
         return super.onOptionsItemSelected(item);

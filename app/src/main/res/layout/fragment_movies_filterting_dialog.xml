@@ -1,0 +1,23 @@
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filtering_options_radio_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/spacing_2"
+    android:gravity="center"
+    android:padding="@dimen/spacing_2"
+    tools:context="amrelmasry.com.reactive_pop_movies.features.grid.MoviesFilteringDialogFragment">
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/most_popular_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_most_popular" />
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/highest_rated_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_highest_rated" />
+</RadioGroup>
