@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
@@ -43,9 +42,10 @@ dependencies {
     compile 'com.google.dagger:dagger:2.8'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
-    apt 'com.google.dagger:dagger-compiler:2.8'
-    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'javax.annotation:jsr250-api:1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
 }
