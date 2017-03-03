@@ -1,11 +1,13 @@
 package amrelmasry.com.reactive_pop_movies.common.injection.modules.base;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import amrelmasry.com.core.BuildConfig;
 import amrelmasry.com.reactive_pop_movies.common.ApiService;
 import amrelmasry.com.reactive_pop_movies.common.utils.ApiKeyInterceptor;
 import amrelmasry.com.reactive_pop_movies.common.utils.Constants;
@@ -23,7 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetworkModule {
-
 
     @Provides
     @Singleton
@@ -44,6 +45,9 @@ public class NetworkModule {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(loggingInterceptor);
         builder.addInterceptor(apiKeyInterceptor);
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(new StethoInterceptor());
+        }
         return builder.build();
     }
 

@@ -1,5 +1,7 @@
 package amrelmasry.com.reactive_pop_movies;
 
+import com.facebook.stetho.Stetho;
+
 import amrelmasry.com.core.BaseApp;
 import amrelmasry.com.reactive_pop_movies.common.injection.components.base.AppComponent;
 import amrelmasry.com.reactive_pop_movies.common.injection.components.base.DaggerAppComponent;
@@ -19,6 +21,17 @@ public class App extends BaseApp {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            initStetho();
+        }
+    }
+
+    private void initStetho() {
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 
     public AppComponent getAppComponent() {
