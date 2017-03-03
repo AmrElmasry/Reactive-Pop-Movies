@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import amrelmasry.com.core.BaseApp;
 import amrelmasry.com.core.models.environments.BaseCoreAppEnvironment;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by Amr on 03/02/17.
  */
 
-public abstract class BaseCoreActivity extends AppCompatActivity {
+public abstract class BaseCoreActivity extends RxAppCompatActivity {
 
     protected final String LOG_TAG = ClassUtils.generateClassTag(this);
 

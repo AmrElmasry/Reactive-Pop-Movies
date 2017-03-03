@@ -54,6 +54,7 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
         mMoviesGridViewModel.getOutputs()
                 .moviesLoaded()
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movies -> {
                             getRecyclerViewAdapter().addAll(movies);
@@ -66,11 +67,13 @@ public class MoviesGridActivity extends BaseRecyclerViewActivity {
         ClicksBus.receive()
                 .ofType(MovieClickEvent.class)
                 .map(MovieClickEvent::getMovie)
+                .compose(bindToLifecycle())
                 .subscribe(movie -> Navigation.openMovieDetailsScreen(this, movie));
 
         SelectionBus.receive()
                 .ofType(FilterSelectionEvent.class)
                 .map(FilterSelectionEvent::getSelectedFilter)
+                .compose(bindToLifecycle())
                 .subscribe(selectedFilter -> {
                     getRecyclerViewAdapter().clear();
                     mSelectedFilter = selectedFilter;

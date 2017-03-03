@@ -62,4 +62,12 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.2.0'
     // cardview
     compile 'com.android.support:cardview-v7:25.2.0'
+
+    // RxLifeCycle
+    compile('com.trello:rxlifecycle:1.0', {
+        exclude group: 'com.google.code.findbugs'
+    })
+    compile('com.trello:rxlifecycle-components:1.0', {
+        exclude group: 'com.google.code.findbugs'
+    })
 }

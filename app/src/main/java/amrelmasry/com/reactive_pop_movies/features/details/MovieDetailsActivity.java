@@ -46,6 +46,7 @@ public class MovieDetailsActivity extends BaseActivity {
                 .onMoviesLoaded()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
                 .subscribe(this::populateMovieInfo,
                         throwable -> {
                             throwable.printStackTrace();
