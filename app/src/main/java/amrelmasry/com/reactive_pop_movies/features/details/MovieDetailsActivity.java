@@ -38,6 +38,8 @@ public class MovieDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         int movieId = getMovieIdFromIntent();
 
+        enableToolbarUpButton(R.id.toolbar);
+
         mMovieDetailsViewModel.getInputs().loadMovieDetails(movieId);
 
         mMovieDetailsViewModel.getOutputs()

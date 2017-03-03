@@ -1,62 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_movie_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="amrelmasry.com.reactive_pop_movies.features.details.MovieDetailsActivity">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/movie_poster_iv"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:scaleType="centerInside"
-        tools:background="@color/colorAccent" />
-
-    <TextView
-        android:id="@+id/movie_title"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/activity_movie_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_4"
-        android:layout_toEndOf="@id/movie_poster_iv"
-        android:gravity="center"
-        android:textAppearance="@style/TitleText"
-        tools:text="Mad Max" />
+        android:orientation="vertical"
+        tools:context="amrelmasry.com.reactive_pop_movies.features.details.MovieDetailsActivity">
 
 
-    <TextView
-        android:id="@+id/movie_rating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movie_title"
-        android:layout_toEndOf="@id/movie_poster_iv"
-        android:gravity="center"
-        android:textAppearance="@style/TitleText"
-        tools:text="6.5" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_up" />
 
-    <TextView
-        android:id="@+id/movie_release_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movie_rating"
-        android:layout_toEndOf="@id/movie_poster_iv"
-        android:gravity="center"
-        android:textAppearance="@style/SubTitleText"
-        tools:text="2017-02-08" />
+        <ImageView
+            android:id="@+id/movie_poster_iv"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:background="@color/colorAccent"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/movie_overview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movie_poster_iv"
-        android:layout_margin="@dimen/spacing_1"
-        android:gravity="center"
-        android:textAppearance="@style/DescriptionText"
-        tools:text="Lorem ipsum dolor sit amet, cum fugit numquam in. Et eius utroque cum. Nec ex senserit assentior, at sea timeam luptatum." />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/movie_poster_iv"
+            android:gravity="center"
+            android:textAppearance="@style/TitleText"
+            app:layout_constraintLeft_toRightOf="@+id/movie_poster_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/movie_poster_iv"
+            tools:text="Mad Max" />
+
+
+        <TextView
+            android:id="@+id/movie_rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movie_title"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/movie_poster_iv"
+            android:gravity="center"
+            android:textAppearance="@style/TitleText"
+            app:layout_constraintLeft_toRightOf="@+id/movie_poster_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
+            tools:text="6.5" />
+
+        <TextView
+            android:id="@+id/movie_release_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movie_rating"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/movie_poster_iv"
+            android:gravity="center"
+            android:textAppearance="@style/SubTitleText"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/movie_poster_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating"
+            tools:text="2017-02-08" />
+
+        <TextView
+            android:id="@+id/movie_overview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movie_poster_iv"
+            android:layout_margin="@dimen/spacing_1"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textAppearance="@style/DescriptionText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_poster_iv"
+            tools:text="Lorem ipsum dolor sit amet, cum fugit numquam in. Et eius utroque cum. Nec ex senserit assentior, at sea timeam luptatum." />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
