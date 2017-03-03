@@ -25,7 +25,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_up" />
+            app:navigationIcon="@drawable/ic_up"
+            app:titleTextColor="@android:color/white" />
 
         <ImageView
             android:id="@+id/movie_poster_iv"
