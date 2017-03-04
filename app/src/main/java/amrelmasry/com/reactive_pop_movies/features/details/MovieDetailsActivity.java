@@ -1,9 +1,12 @@
 package amrelmasry.com.reactive_pop_movies.features.details;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -14,14 +17,16 @@ import amrelmasry.com.reactive_pop_movies.common.models.Movie;
 import amrelmasry.com.reactive_pop_movies.common.utils.Constants;
 import amrelmasry.com.reactive_pop_movies.features.details.viewmodel.MovieDetailsViewModel;
 import butterknife.BindView;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
+import static amrelmasry.com.core.utils.rx.Transformations.applySchedulers;
+import static amrelmasry.com.core.utils.rx.Transformations.mapToToggling;
 
 public class MovieDetailsActivity extends BaseActivity {
 
 
     @Inject
     MovieDetailsViewModel mMovieDetailsViewModel;
+
     @BindView(R.id.movie_poster_iv)
     ImageView mMoviePosterIv;
     @BindView(R.id.movie_title)
@@ -32,6 +37,8 @@ public class MovieDetailsActivity extends BaseActivity {
     TextView mMovieReleaseDateTv;
     @BindView(R.id.movie_overview)
     TextView mMovieOverviewTv;
+    @BindView(R.id.star_fab)
+    FloatingActionButton mAddToFavoritesFab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,21 @@ public class MovieDetailsActivity extends BaseActivity {
 
         mMovieDetailsViewModel.getInputs().loadMovieDetails(movieId);
 
+        RxView.clicks(mAddToFavoritesFab)
+                .compose(mapToToggling())
+                .compose(bindToLifecycle())
+                .subscribe(addToFavorites -> {
+                    if (addToFavorites) {
+                        Toast.makeText(this, "Adding to favorites..", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Removing from favorites..", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
         mMovieDetailsViewModel.getOutputs()
                 .onMoviesLoaded()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(applySchedulers())
                 .compose(bindToLifecycle())
                 .subscribe(this::populateMovieInfo,
                         throwable -> {

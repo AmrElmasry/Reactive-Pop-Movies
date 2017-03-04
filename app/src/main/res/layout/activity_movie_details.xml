@@ -109,5 +109,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_poster_iv"
             tools:text="Lorem ipsum dolor sit amet, cum fugit numquam in. Et eius utroque cum. Nec ex senserit assentior, at sea timeam luptatum." />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/star_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            app:backgroundTint="@android:color/darker_gray"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_star_gray" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
