@@ -2,6 +2,7 @@ package amrelmasry.com.reactive_pop_movies.features.details;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,8 +56,12 @@ public class MovieDetailsActivity extends BaseActivity {
                 .subscribe(addToFavorites -> {
                     if (addToFavorites) {
                         Toast.makeText(this, "Adding to favorites..", Toast.LENGTH_SHORT).show();
+                        mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
+                                this, R.drawable.ic_star_golden));
                     } else {
                         Toast.makeText(this, "Removing from favorites..", Toast.LENGTH_SHORT).show();
+                        mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
+                                this, R.drawable.ic_star_gray));
                     }
                 });
 

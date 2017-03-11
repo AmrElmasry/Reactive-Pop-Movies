@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.details.MovieDetailsActivity" />
+        <activity
+            android:name=".features.details.MovieDetailsActivity"
+            android:theme="@style/FullScreenStyle" />
     </application>
 
 </manifest>

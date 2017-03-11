@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -47,7 +48,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     // Stetho
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'

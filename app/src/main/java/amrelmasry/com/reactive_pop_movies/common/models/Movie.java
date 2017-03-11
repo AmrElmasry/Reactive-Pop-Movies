@@ -1,19 +1,23 @@
 package amrelmasry.com.reactive_pop_movies.common.models;
 
 import amrelmasry.com.reactive_pop_movies.common.utils.Constants;
+import io.realm.RealmObject;
 
 /**
  * Created by Amr on 11/02/17.
  */
 
-public class Movie {
+public class Movie extends RealmObject {
 
-    int id;
-    String title;
-    String poster_path;
-    String overview;
-    String vote_average;
-    String release_date;
+    private int id;
+    private String title;
+    private String poster_path;
+    private String overview;
+    private String vote_average;
+    private String release_date;
+
+    public Movie() {
+    }
 
     public Movie(int id, String title) {
         this.id = id;
