@@ -22,6 +22,10 @@ public class Transformations {
         return new TogglingMappingTransformation<>();
     }
 
+    public static <T> Observable.Transformer<T, Boolean> mapToToggling(boolean firstState) {
+        return new TogglingMappingTransformation<>(firstState);
+    }
+
     public static <T> Observable.Transformer<T, T> applySchedulers() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

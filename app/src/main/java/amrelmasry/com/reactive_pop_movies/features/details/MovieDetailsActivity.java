@@ -18,6 +18,7 @@ import amrelmasry.com.reactive_pop_movies.common.models.Movie;
 import amrelmasry.com.reactive_pop_movies.common.utils.Constants;
 import amrelmasry.com.reactive_pop_movies.features.details.viewmodel.MovieDetailsViewModel;
 import butterknife.BindView;
+import io.realm.Realm;
 
 import static amrelmasry.com.core.utils.rx.Transformations.applySchedulers;
 import static amrelmasry.com.core.utils.rx.Transformations.mapToToggling;
@@ -41,33 +42,36 @@ public class MovieDetailsActivity extends BaseActivity {
     @BindView(R.id.star_fab)
     FloatingActionButton mAddToFavoritesFab;
 
+    private Movie mMovie;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         int movieId = getMovieIdFromIntent();
+
+        makeStarredIfFavorite(movieId);
 
         enableToolbarUpButton(R.id.toolbar);
 
         mMovieDetailsViewModel.getInputs().loadMovieDetails(movieId);
 
         RxView.clicks(mAddToFavoritesFab)
-                .compose(mapToToggling())
+                .filter(__ -> mMovie != null)
+                .compose(mapToToggling(isFavoriteMovie(movieId)))
                 .compose(bindToLifecycle())
                 .subscribe(addToFavorites -> {
                     if (addToFavorites) {
-                        Toast.makeText(this, "Adding to favorites..", Toast.LENGTH_SHORT).show();
-                        mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
-                                this, R.drawable.ic_star_golden));
+                        mMovieDetailsViewModel.addToFavorites(mMovie);
                     } else {
-                        Toast.makeText(this, "Removing from favorites..", Toast.LENGTH_SHORT).show();
-                        mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
-                                this, R.drawable.ic_star_gray));
+                        mMovieDetailsViewModel.removeFromFavorites(mMovie);
                     }
                 });
 
 
         mMovieDetailsViewModel.getOutputs()
-                .onMoviesLoaded()
+                .onMovieLoaded()
+                .doOnNext(movie -> mMovie = movie)
                 .compose(applySchedulers())
                 .compose(bindToLifecycle())
                 .subscribe(this::populateMovieInfo,
@@ -75,6 +79,32 @@ public class MovieDetailsActivity extends BaseActivity {
                             throwable.printStackTrace();
                             showError(throwable.getMessage());
                         });
+
+
+        mMovieDetailsViewModel.getOutputs()
+                .onMovieAddedToFavorites()
+                .compose(bindToLifecycle())
+                .subscribe(__ -> {
+                    Toast.makeText(this, "Movie Added to favorites", Toast.LENGTH_SHORT).show();
+                    mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
+                            this, R.drawable.ic_star_golden));
+                });
+
+        mMovieDetailsViewModel.getOutputs()
+                .onMovieRemovedFromFavorites()
+                .compose(bindToLifecycle())
+                .subscribe(__ -> {
+                    Toast.makeText(this, "Movie Removed from favorites", Toast.LENGTH_SHORT).show();
+                    mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
+                            this, R.drawable.ic_star_gray));
+                });
+    }
+
+    private void makeStarredIfFavorite(int movieId) {
+        if (isFavoriteMovie(movieId)) {
+            mAddToFavoritesFab.setImageDrawable(ContextCompat.getDrawable(
+                    this, R.drawable.ic_star_golden));
+        }
     }
 
     private int getMovieIdFromIntent() {
@@ -94,6 +124,11 @@ public class MovieDetailsActivity extends BaseActivity {
         mMovieRatingTv.setText(movie.getVote_average());
         mMovieReleaseDateTv.setText(movie.getRelease_date());
         mMovieTitleTv.setText(movie.getTitle());
+    }
+
+    private boolean isFavoriteMovie(int movieId) {
+        Movie movie = Realm.getDefaultInstance().where(Movie.class).equalTo("id", movieId).findFirst();
+        return movie != null;
     }
 
     @Override

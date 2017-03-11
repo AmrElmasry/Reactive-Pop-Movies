@@ -2,6 +2,7 @@ package amrelmasry.com.reactive_pop_movies.common.models;
 
 import amrelmasry.com.reactive_pop_movies.common.utils.Constants;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Amr on 11/02/17.
@@ -9,6 +10,7 @@ import io.realm.RealmObject;
 
 public class Movie extends RealmObject {
 
+    @PrimaryKey
     private int id;
     private String title;
     private String poster_path;

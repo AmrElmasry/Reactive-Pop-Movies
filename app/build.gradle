@@ -52,8 +52,10 @@ dependencies {
     // Stetho
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    debugCompile 'com.uphyca:stetho_realm:2.0.0'
     // design support library
     compile 'com.android.support:design:25.2.0'
     // rx binding
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+
 }
